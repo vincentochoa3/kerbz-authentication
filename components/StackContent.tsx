@@ -10,7 +10,9 @@ export default function AppProvider() {
         <Stack.Screen name="index" />
       </Stack.Protected>
 
-      <Stack.Screen name="login" />
+      <Stack.Protected guard={!isAuthenticated}>
+        <Stack.Screen name="login" />
+      </Stack.Protected>
     </Stack>
   );
 }

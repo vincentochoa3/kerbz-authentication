@@ -7,7 +7,7 @@ export default function Index() {
 
   const handleLogout = () => {
     logout();
-    router.push("/login");
+    router.replace("/login");
   };
 
   return (

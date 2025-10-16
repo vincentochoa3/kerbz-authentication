@@ -20,7 +20,7 @@ export default function Login() {
       name: "John Doe",
       unreadCount: 0,
     });
-    router.push("/");
+    router.replace("/");
   };
 
   return (
