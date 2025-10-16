@@ -1,11 +1,11 @@
-import { Stack } from "expo-router";
+import StackContent from "@/components/StackContent";
+import { store } from "@/store";
 import { Provider } from "react-redux";
-import { store } from "../store";
 
 export default function RootLayout() {
   return (
     <Provider store={store}>
-      <Stack />
+      <StackContent />
     </Provider>
   );
 }
