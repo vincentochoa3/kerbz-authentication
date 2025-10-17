@@ -1,4 +1,5 @@
 import { useAuth } from "@/hooks/useAuth";
+import axios from "axios";
 import { useEffect } from "react";
 import {
   ActivityIndicator,
@@ -20,24 +21,24 @@ export default function Index() {
   useEffect(() => {
     const getUser = async () => {
       if (token) {
-        // await axios
-        //   .get(`${BASE_URL}/me`, {
-        //     headers: {
-        //       Authorization: `Bearer ${token}`,
-        //     },
-        //   })
-        //   .then((response) => {
-        //     console.log("response", response.data);
+        await axios
+          .get(`${process.env.EXPO_PUBLIC_BASE_URL}/me`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            console.log("response", response.data);
+          })
+          .catch((error) => {
+            if (error.response) {
+              console.log("error reponse code", error.response.status);
+            } else {
+              console.log("error in getUser", error.message);
+            }
+            console.log("error in getUser", error);
+          });
         setUserAuth(USER_DATA);
-        // })
-        // .catch((error) => {
-        //   if (error.response) {
-        //     console.log("error reponse code", error.response.status);
-        //   } else {
-        //     console.log("error in getUser", error.message);
-        //   }
-        //   console.log("error in getUser", error);
-        // });
       }
     };
     getUser();
