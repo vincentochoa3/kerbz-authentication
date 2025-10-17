@@ -6,20 +6,20 @@ export interface User {
   unreadCount: number;
 }
 
-export interface AuthState {
+export interface AuthUserState {
   token: string | null;
   user: User | null;
   lastActiveAt: string | null;
 }
 
-const initialState: AuthState = {
+const initialState: AuthUserState = {
   token: null,
   user: null,
   lastActiveAt: null,
 };
 
-const authSlice = createSlice({
-  name: "auth",
+const authUserSlice = createSlice({
+  name: "authUser",
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<{ token: string }>) => {
@@ -37,5 +37,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setToken, setUser, clearAuth } = authSlice.actions;
-export default authSlice.reducer;
+export const { setToken, setUser, clearAuth } = authUserSlice.actions;
+export default authUserSlice.reducer;

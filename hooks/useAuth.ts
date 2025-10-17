@@ -3,15 +3,16 @@ import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
-import { clearAuth, setToken, setUser } from "../store/slices/authSlice";
+import { clearAuth, setToken, setUser } from "../store/slices/authUserSlice";
 
 export const useAuth = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const auth = useSelector((state: RootState) => state.auth);
+  const authUser = useSelector((state: RootState) => state.authUser);
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     const getTokenFromStorage = async () => {
+      // setTimeout to simulate loading
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const token = await loadToken();
       if (token) {
@@ -29,7 +30,7 @@ export const useAuth = () => {
     router.replace("/");
   };
 
-  const setUserAuth = (user: {
+  const setAuthUser = (user: {
     id: string;
     name: string;
     unreadCount: number;
@@ -38,7 +39,7 @@ export const useAuth = () => {
   };
 
   const logout = () => {
-    clearToken(); // Clear token from secure storage
+    clearToken();
     dispatch(clearAuth());
     router.replace("/login");
   };
@@ -46,11 +47,11 @@ export const useAuth = () => {
   return {
     // State
     isReady,
-    token: auth.token,
-    user: auth.user,
-    lastActiveAt: auth.lastActiveAt,
+    token: authUser.token,
+    user: authUser.user,
+    lastActiveAt: authUser.lastActiveAt,
     // Actions
-    setUserAuth,
+    setAuthUser,
     login,
     logout,
   };

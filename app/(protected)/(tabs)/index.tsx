@@ -16,7 +16,7 @@ const USER_DATA = {
 };
 
 export default function Index() {
-  const { isReady, user, token, lastActiveAt, logout, setUserAuth } = useAuth();
+  const { isReady, user, token, lastActiveAt, logout, setAuthUser } = useAuth();
 
   useEffect(() => {
     const getUser = async () => {
@@ -38,7 +38,7 @@ export default function Index() {
             }
             console.log("error in getUser", error);
           });
-        setUserAuth(USER_DATA);
+        setAuthUser(USER_DATA);
       }
     };
     getUser();
