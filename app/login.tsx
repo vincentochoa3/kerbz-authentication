@@ -1,5 +1,4 @@
 import { useAuth } from "@/hooks/useAuth";
-import { router } from "expo-router";
 import { useState } from "react";
 import {
   StyleSheet,
@@ -9,18 +8,19 @@ import {
   View,
 } from "react-native";
 
+const LOGIN_RESPONSE_DATA = {
+  token: "1234567890",
+  userId: "1234567890",
+  name: "John Doe",
+};
+
 export default function Login() {
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setUserAuth } = useAuth();
 
   const handleLogin = () => {
-    setUserAuth("1234567890", {
-      id: "1234567890",
-      name: "John Doe",
-      unreadCount: 0,
-    });
-    router.replace("/");
+    login(LOGIN_RESPONSE_DATA.token);
   };
 
   return (

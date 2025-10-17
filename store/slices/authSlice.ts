@@ -22,24 +22,11 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setAuth: (state, action: PayloadAction<{ token: string; user: User }>) => {
+    setToken: (state, action: PayloadAction<{ token: string }>) => {
       state.token = action.payload.token;
+    },
+    setUser: (state, action: PayloadAction<{ user: User }>) => {
       state.user = action.payload.user;
-      state.lastActiveAt = new Date().toISOString();
-    },
-    updateUser: (state, action: PayloadAction<Partial<User>>) => {
-      if (state.user) {
-        state.user = { ...state.user, ...action.payload };
-        state.lastActiveAt = new Date().toISOString();
-      }
-    },
-    updateUnreadCount: (state, action: PayloadAction<number>) => {
-      if (state.user) {
-        state.user.unreadCount = action.payload;
-        state.lastActiveAt = new Date().toISOString();
-      }
-    },
-    updateLastActive: (state) => {
       state.lastActiveAt = new Date().toISOString();
     },
     clearAuth: (state) => {
@@ -50,11 +37,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {
-  setAuth,
-  updateUser,
-  updateUnreadCount,
-  updateLastActive,
-  clearAuth,
-} = authSlice.actions;
+export const { setToken, setUser, clearAuth } = authSlice.actions;
 export default authSlice.reducer;

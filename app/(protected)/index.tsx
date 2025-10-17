@@ -1,14 +1,35 @@
 import { useAuth } from "@/hooks/useAuth";
-import { router } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useEffect } from "react";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+
+const USER_DATA = {
+  name: "John Doe",
+  id: "1234567890",
+  unreadCount: 0,
+};
 
 export default function Index() {
-  const { logout, user, token, lastActiveAt } = useAuth();
+  const { isReady, user, token, lastActiveAt, logout, setUserAuth } = useAuth();
+
+  useEffect(() => {
+    if (token) {
+      setUserAuth(USER_DATA);
+    }
+  }, [token]);
 
   const handleLogout = () => {
     logout();
-    router.replace("/login");
   };
+
+  if (!isReady) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
 
   return (
     <View style={styles.container}>
