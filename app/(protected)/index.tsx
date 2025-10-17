@@ -18,9 +18,29 @@ export default function Index() {
   const { isReady, user, token, lastActiveAt, logout, setUserAuth } = useAuth();
 
   useEffect(() => {
-    if (token) {
-      setUserAuth(USER_DATA);
-    }
+    const getUser = async () => {
+      if (token) {
+        // await axios
+        //   .get(`${BASE_URL}/me`, {
+        //     headers: {
+        //       Authorization: `Bearer ${token}`,
+        //     },
+        //   })
+        //   .then((response) => {
+        //     console.log("response", response.data);
+        setUserAuth(USER_DATA);
+        // })
+        // .catch((error) => {
+        //   if (error.response) {
+        //     console.log("error reponse code", error.response.status);
+        //   } else {
+        //     console.log("error in getUser", error.message);
+        //   }
+        //   console.log("error in getUser", error);
+        // });
+      }
+    };
+    getUser();
   }, [token]);
 
   const handleLogout = () => {
