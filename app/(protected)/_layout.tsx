@@ -1,9 +1,30 @@
 import { useAuth } from "@/hooks/useAuth";
-import { Redirect, Stack } from "expo-router";
+import api from "@/utils/api";
+import { Stack } from "expo-router";
+import { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 
+const USER_DATA = {
+  name: "John Doe",
+  id: "1234567890",
+  unreadCount: 0,
+};
+
 export default function ProtectedLayout() {
-  const { isReady, token } = useAuth();
+  const { isReady, setAuthUser } = useAuth();
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const response = await api.get("/me");
+        setAuthUser(USER_DATA);
+        console.log("response", response.data);
+      } catch (error) {
+        console.log("error in getUser", error);
+      }
+    };
+    getUser();
+  }, []);
 
   if (!isReady) {
     return (
@@ -11,10 +32,6 @@ export default function ProtectedLayout() {
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
-  }
-
-  if (token === null) {
-    return <Redirect href="/login" />;
   }
 
   return (
