@@ -1,5 +1,4 @@
-"use client";
-import { clearToken, loadToken, saveToken } from "@/store/session";
+import { clearToken, loadToken, saveToken } from "@/utils/session";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
