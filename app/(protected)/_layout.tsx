@@ -19,10 +19,7 @@ export default function ProtectedLayout() {
 
   return (
     <Stack>
-      <Stack.Screen
-        name="index"
-        options={{ title: "Home", animation: "none" }}
-      />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
     </Stack>
   );
 }
