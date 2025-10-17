@@ -12,8 +12,8 @@ export const useAuth = () => {
 
   useEffect(() => {
     const getTokenFromStorage = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const token = await loadToken();
-      console.log("token in useAuth", token);
       if (token) {
         dispatch(setToken({ token }));
       }

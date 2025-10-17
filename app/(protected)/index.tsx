@@ -41,14 +41,18 @@ export default function Index() {
       }
     };
     getUser();
-  }, [token]);
+  }, []);
 
   const handleLogout = () => {
     logout();
   };
 
   if (!isReady) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
   }
 
   return (
@@ -80,6 +84,11 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   container: {
     flex: 1,
     padding: 20,

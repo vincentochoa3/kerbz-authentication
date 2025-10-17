@@ -1,12 +1,16 @@
 import { useAuth } from "@/hooks/useAuth";
 import { Redirect, Stack } from "expo-router";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 
 export default function ProtectedLayout() {
   const { isReady, token } = useAuth();
 
   if (!isReady) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
   }
 
   if (token === null) {
