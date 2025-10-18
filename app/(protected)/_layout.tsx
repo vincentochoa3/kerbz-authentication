@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 export default function ProtectedLayout() {
-  const { isReady, setAuthUser, logout } = useAuth();
+  const { isReady, setAuthUser } = useAuth();
 
   useEffect(() => {
     const getUser = async () => {
@@ -17,7 +17,7 @@ export default function ProtectedLayout() {
             const data = res.data;
             setAuthUser({
               id: data.id,
-              name: data.username,
+              name: `${data.firstName} ${data.lastName}`,
               unreadCount: 0,
             });
           });
