@@ -15,7 +15,9 @@ export default function Logout() {
     }
   };
   return (
-    <View>
+    <View style={styles.container}>
+      <Text style={styles.title}>Logout</Text>
+      <Text style={styles.subtitle}>Are you sure you want to log out?</Text>
       <TouchableOpacity
         onPress={handleLogout}
         style={styles.logoutButton}
@@ -28,6 +30,22 @@ export default function Logout() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "#666",
+    marginBottom: 20,
+    textAlign: "center",
+  },
   logoutButton: {
     backgroundColor: "#007AFF",
     width: "100%",

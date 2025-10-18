@@ -16,13 +16,23 @@ export default function Index() {
     <View style={styles.container}>
       <Text style={styles.title}>Kerbz Authentication</Text>
       <Text style={styles.subtitle}>Welcome Home!</Text>
-      <View>
-        <Text>User: {user?.name}</Text>
-        <Text>ID: {user?.id}</Text>
-        <Text>Unread Count: {user?.unreadCount}</Text>
-      </View>
-      <View>
-        <Text>Last Active: {lastActiveAt?.toString()}</Text>
+      <View style={styles.userInfo}>
+        <View>
+          <Text style={styles.label}>User:</Text>
+          <Text>{user?.name}</Text>
+        </View>
+        <View>
+          <Text style={styles.label}>ID:</Text>
+          <Text>{user?.id}</Text>
+        </View>
+        <View>
+          <Text style={styles.label}>Unread Count:</Text>
+          <Text>{user?.unreadCount}</Text>
+        </View>
+        <View>
+          <Text style={styles.label}>Last Active:</Text>
+          <Text>{lastActiveAt?.toString()}</Text>
+        </View>
       </View>
     </View>
   );
@@ -49,5 +59,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#666",
     marginBottom: 30,
+  },
+  userInfo: {
+    gap: 10,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
