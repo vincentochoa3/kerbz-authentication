@@ -1,10 +1,18 @@
 import { useAuth } from "@/hooks/useAuth";
+import api from "@/utils/api";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Logout() {
   const { logout } = useAuth();
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    try {
+      await api.post("/logout", {
+        withCredentials: true,
+      });
+      logout();
+    } catch (error) {
+      console.log("error logging out:", error);
+    }
   };
   return (
     <View>

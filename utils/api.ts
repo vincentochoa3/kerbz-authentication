@@ -6,17 +6,20 @@ import { clearToken, loadToken } from "./session";
 
 // Create an Axios instance (optional, but recommended for specific configurations)
 const api = axios.create({
-  baseURL: process.env.EXPO_PUBLIC_BASE_URL, // Replace with your API base URL
-  timeout: 10000, // Request timeout in milliseconds
+  baseURL: process.env.EXPO_PUBLIC_BASE_URL,
+  timeout: 10000,
 });
 
 // Add a request interceptor to inject the authorization header
 api.interceptors.request.use(
   async (config) => {
     try {
-      const token = await loadToken(); // Retrieve token from SecureStore
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`; // Inject the token
+      const publicEndpoints = ["/login"];
+      if (!publicEndpoints.some((url) => config.url?.includes(url))) {
+        const token = await loadToken(); // Retrieve token from SecureStore
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`; // Inject the token
+        }
       }
     } catch (error) {
       console.error("Error retrieving token from SecureStore:", error);
@@ -28,26 +31,19 @@ api.interceptors.request.use(
   }
 );
 
+// Add a response interceptor to handle 401 Unauthorized errors globally
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (
-      error.response &&
-      (error.response.status === 401 || error.response.status === 404)
-    ) {
+    if (error.response?.status === 401) {
       // Handle 401 Unauthorized error globally
-      console.log("Unauthorized: Authentication failed or expired.");
+      console.log("Unauthorized: Authentication failed or session expired.");
       clearToken();
       clearAuth();
       router.replace("/login");
       Alert.alert(
         "Session Expired",
-        "Your session has expired. Please log in again.",
-        [
-          {
-            text: "OK",
-          },
-        ]
+        "Your session has expired. Please log in again."
       );
     }
     return Promise.reject(error);

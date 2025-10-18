@@ -1,26 +1,29 @@
 import { useAuth } from "@/hooks/useAuth";
 import api from "@/utils/api";
+import { loadToken } from "@/utils/session";
 import { Stack } from "expo-router";
 import { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 
-const USER_DATA = {
-  name: "John Doe",
-  id: "1234567890",
-  unreadCount: 0,
-};
-
 export default function ProtectedLayout() {
-  const { isReady, setAuthUser } = useAuth();
+  const { isReady, setAuthUser, logout } = useAuth();
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await api.get("/me");
-        setAuthUser(USER_DATA);
-        console.log("response", response.data);
+        const token = await loadToken();
+        if (token) {
+          await api.get("/me").then((res) => {
+            const data = res.data;
+            setAuthUser({
+              id: data.id,
+              name: data.username,
+              unreadCount: 0,
+            });
+          });
+        }
       } catch (error) {
-        console.log("error in getUser", error);
+        console.log("error getting user:", error);
       }
     };
     getUser();

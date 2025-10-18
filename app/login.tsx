@@ -1,4 +1,5 @@
 import { useAuth } from "@/hooks/useAuth";
+import api from "@/utils/api";
 import { useState } from "react";
 import {
   StyleSheet,
@@ -8,19 +9,26 @@ import {
   View,
 } from "react-native";
 
-const LOGIN_RESPONSE_DATA = {
-  token: "1234567890",
-  userId: "1234567890",
-  name: "John Doe",
-};
-
 export default function Login() {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    login(LOGIN_RESPONSE_DATA.token);
+  const handleLogin = async () => {
+    try {
+      await api
+        .post("/login", {
+          username: email,
+          password: password,
+          expiresInMins: 1,
+          withCredentials: true,
+        })
+        .then((res) => {
+          login(res.data.accessToken);
+        });
+    } catch (error) {
+      console.log("error logging in:", error);
+    }
   };
 
   return (

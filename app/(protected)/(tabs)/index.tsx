@@ -2,7 +2,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
-  const { isReady, user, token, lastActiveAt, setAuthUser } = useAuth();
+  const { isReady, user, lastActiveAt } = useAuth();
 
   if (!isReady) {
     return (
@@ -20,9 +20,6 @@ export default function Index() {
         <Text>User: {user?.name}</Text>
         <Text>ID: {user?.id}</Text>
         <Text>Unread Count: {user?.unreadCount}</Text>
-      </View>
-      <View>
-        <Text>Token: {token}</Text>
       </View>
       <View>
         <Text>Last Active: {lastActiveAt?.toString()}</Text>
