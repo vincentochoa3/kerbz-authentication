@@ -29,6 +29,9 @@ const authUserSlice = createSlice({
       state.user = action.payload.user;
       state.lastActiveAt = new Date().toISOString();
     },
+    setLastActiveAt: (state) => {
+      state.lastActiveAt = new Date().toISOString();
+    },
     clearAuth: (state) => {
       state.token = null;
       state.user = null;
@@ -37,5 +40,6 @@ const authUserSlice = createSlice({
   },
 });
 
-export const { setToken, setUser, clearAuth } = authUserSlice.actions;
+export const { setToken, setUser, setLastActiveAt, clearAuth } =
+  authUserSlice.actions;
 export default authUserSlice.reducer;

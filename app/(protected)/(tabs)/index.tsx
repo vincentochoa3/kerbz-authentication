@@ -31,7 +31,7 @@ export default function Index() {
         </View>
         <View>
           <Text style={styles.label}>Last Active:</Text>
-          <Text>{lastActiveAt?.toString()}</Text>
+          <Text>{new Date(lastActiveAt || "").toLocaleTimeString()}</Text>
         </View>
       </View>
     </View>

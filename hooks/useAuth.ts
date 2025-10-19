@@ -3,7 +3,12 @@ import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store";
-import { clearAuth, setToken, setUser } from "../store/slices/authUserSlice";
+import {
+  clearAuth,
+  setLastActiveAt,
+  setToken,
+  setUser,
+} from "../store/slices/authUserSlice";
 
 export const useAuth = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -38,6 +43,10 @@ export const useAuth = () => {
     dispatch(setUser({ user }));
   };
 
+  const updateLastActiveAt = () => {
+    dispatch(setLastActiveAt());
+  };
+
   const logout = () => {
     clearToken();
     dispatch(clearAuth());
@@ -52,6 +61,7 @@ export const useAuth = () => {
     lastActiveAt: authUser.lastActiveAt,
     // Actions
     setAuthUser,
+    updateLastActiveAt,
     login,
     logout,
   };

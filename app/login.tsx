@@ -22,7 +22,7 @@ export default function Login() {
         .post("/login", {
           username: email,
           password: password,
-          expiresInMins: 1,
+          expiresInMins: 30,
           withCredentials: true,
         })
         .then((res) => {
