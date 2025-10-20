@@ -1,7 +1,8 @@
 import { useAuth } from "@/hooks/useAuth";
 import api from "@/utils/api";
+import { loadToken } from "@/utils/session";
 import { AxiosError } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -16,13 +17,23 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    const checkForToken = async () => {
+      const token = await loadToken();
+      if (token) {
+        login(token);
+      }
+    };
+    checkForToken();
+  }, []);
+
   const handleLogin = async () => {
     try {
       await api
         .post("/login", {
           username: email,
           password: password,
-          expiresInMins: 30,
+          expiresInMins: 1,
           withCredentials: true,
         })
         .then((res) => {
