@@ -25,15 +25,55 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+## How to test
 
-When you're ready, run:
+1. Open project and add to `.env`:
 
-```bash
-npm run reset-project
-```
+   ```bash
+      ### KERBZ URL
+      # EXPO_PUBLIC_BASE_URL=https://api.staging.kerbzadventures.com
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+      ### DummyJSON URL
+      EXPO_PUBLIC_BASE_URL=https://dummyjson.com/auth
+   ```
+
+   - Note: Since the `/me` for Kerbz api was returning not found 404, I opted to use free mock API @ dummyjson.com
+
+2. Must have physical device, iOS simulator, or Android emulator to test
+
+3. Run commands listed above in ## Get started
+
+   ```bash
+   npm install
+   ```
+
+   then
+
+   ```bash
+   npx expo start
+   ```
+
+4. Once `.env` is added and project is running, application loads `/login`
+
+   - Valid credentials for mock api:
+     Email: `emilys` (mock API uses username to authorize instead of email)
+     Password: `emilyspass`
+
+5. After successful login, application redirects to protected `/` route, and user information is displayed
+
+6. Test Session Persistence
+
+   - Once logged in, press `r` in terminal running project to reload app (before 1 minute session expiration) and application navigates directly to `/` instead of `/login`
+   - If user has been logged in longer than 1 minute, session is cleared, user is logged out, and alerted to log in again.
+
+7. Test lock screen
+
+   - If no gestures are made for 30 seconds, application redirects automatically to `/lock-screen`
+   - Similarly, if application is not in foreground for 30 seconds, `/lock-screen` shows on reopening app
+
+8. Test `Back to Home` button on `/lock-screen`
+   - Pressing button redirects and makes call to `/me`
+   - Again, if user has been logged in longer than 1 minute, session is cleared, user is logged out, and alerted to log in again.
 
 ## Learn more
 
