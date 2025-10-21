@@ -53,27 +53,29 @@ You can start developing by editing the files inside the **app** directory. This
    npx expo start
    ```
 
-4. Once `.env` is added and project is running, application loads `/login`
+4. Once `.env` is added and project is running, application loads `/login` screen
 
    - Valid credentials for mock api:
+     <br/>
      Email: `emilys` (mock API uses username to authorize instead of email)
+     <br/>
      Password: `emilyspass`
 
-5. After successful login, application redirects to protected `/` route, and user information is displayed
+5. After successful login, application redirects to protected `/` screen, and user information is displayed
 
 6. Test Session Persistence
 
-   - Once logged in, press `r` in terminal running project to reload app (before 1 minute session expiration) and application navigates directly to `/` instead of `/login`
-   - If user has been logged in longer than 1 minute, session is cleared, user is logged out, and alerted to log in again.
+   - Once logged in, press `r` in the terminal running the project to reload application (before 1 minute session expiration) and application navigates directly to `/` screen instead of `/login`
+   - If user has been logged in longer than 1 minute, (via global 401 error handler) session is cleared, user is logged out, and alerted to log in again.
 
 7. Test lock screen
 
-   - If no gestures are made for 30 seconds, application redirects automatically to `/lock-screen`
-   - Similarly, if application is not in foreground for 30 seconds, `/lock-screen` shows on reopening app
+   - If no gestures are made for 30 seconds, application automatically redirects to `/lock-screen` (notice `Last Active:` attribute updates after every user gesture)
+   - Similarly, if application is not in foreground for 30 seconds, `/lock-screen` shows on re-opening application
 
 8. Test `Back to Home` button on `/lock-screen`
    - Pressing button redirects and makes call to `/me`
-   - Again, if user has been logged in longer than 1 minute, session is cleared, user is logged out, and alerted to log in again.
+   - Again, if user has been logged in longer than 1 minute, (via global 401 error handler) session is cleared, user is logged out, and alerted to log in again.
 
 ## Learn more
 
