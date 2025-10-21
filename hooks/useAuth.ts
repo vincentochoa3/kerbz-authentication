@@ -16,7 +16,7 @@ export const useAuth = () => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const getTokenFromStorage = async () => {
+    const checkForToken = async () => {
       // setTimeout to simulate loading
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const token = await loadToken();
@@ -26,7 +26,7 @@ export const useAuth = () => {
       setIsReady(true);
     };
 
-    getTokenFromStorage();
+    checkForToken();
   }, [dispatch]);
 
   const login = (token: string) => {

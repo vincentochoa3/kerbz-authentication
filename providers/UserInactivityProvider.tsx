@@ -7,19 +7,13 @@ import React, {
   useRef,
   useState,
 } from "react";
-import {
-  Alert,
-  AppState,
-  AppStateStatus,
-  PanResponder,
-  View,
-} from "react-native";
+import { AppState, AppStateStatus, PanResponder, View } from "react-native";
 
 interface ReactNativeInactivityProps {
   children: React.ReactNode;
 }
 
-const TIME_FOR_INACTIVITY = 6000;
+const TIME_FOR_INACTIVITY = 30000;
 
 export const UserInactivityProvider = ({
   children,
@@ -60,17 +54,11 @@ export const UserInactivityProvider = ({
     [resetTimerForPanResponder]
   );
 
-  const showInactivityAlert = () => {
-    Alert.alert("Inactivity Alert", "User has been inactive for too long!", [
-      { text: "OK", onPress: () => router.replace("/login") },
-    ]);
-  };
-
   // Handles when to show inactivity alert when timer expires or app returns from background after timeout
   useEffect(() => {
     // Handle timer-based inactivity
     if (isInactivityTimeCompleted) {
-      showInactivityAlert();
+      router.replace("/lock-screen");
       setIsInactivityTimeCompleted(false);
       return;
     }
@@ -87,7 +75,7 @@ export const UserInactivityProvider = ({
           lastActiveAt &&
           Date.now() - new Date(lastActiveAt).getTime() >= TIME_FOR_INACTIVITY
         ) {
-          showInactivityAlert();
+          router.replace("/lock-screen");
         }
       }
       appState.current = nextAppState;
@@ -102,7 +90,6 @@ export const UserInactivityProvider = ({
 
   // Starts the initial timer when component mounts and cleans up on unmount
   useEffect(() => {
-    console.log("RESET TIMER useEffect");
     resetTimer();
     return () => stopTimer();
   }, []);
