@@ -20,13 +20,15 @@ export default function Login() {
     try {
       await api
         .post("/login", {
-          username: email,
+          // email: email, // uncomment for REAL API
+          username: email, // uncomment for DUMMY API
           password: password,
-          expiresInMins: 1,
+          expiresInMins: 1, // uncomment for DUMMY API
           withCredentials: true,
         })
         .then((res) => {
-          login(res.data.accessToken);
+          // login(res.data.token); // uncomment for REAL API
+          login(res.data.accessToken); // uncomment for DUMMY API
         });
     } catch (error) {
       if (error instanceof AxiosError) {

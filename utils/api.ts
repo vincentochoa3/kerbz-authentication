@@ -4,7 +4,7 @@ import { router } from "expo-router";
 import { Alert } from "react-native";
 import { clearToken, loadToken } from "./session";
 
-// Create an Axios instance (optional, but recommended for specific configurations)
+// Create an Axios instance
 const api = axios.create({
   baseURL: process.env.EXPO_PUBLIC_BASE_URL,
   timeout: 10000,
@@ -31,7 +31,7 @@ api.interceptors.request.use(
   }
 );
 
-// Add a response interceptor to handle 401 Unauthorized errors globally
+// Add a response interceptor to handle 401 Unauthorized and 404 Not Found errors globally
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -44,6 +44,17 @@ api.interceptors.response.use(
       Alert.alert(
         "Session Expired",
         "Your session has expired. Please log in again."
+      );
+    }
+    if (error.response?.status === 404) {
+      // Handle 404 Not Found error globally
+      console.log("Not Found: Resource not found.");
+      clearToken();
+      clearAuth();
+      router.replace("/login");
+      Alert.alert(
+        "Not Found",
+        "Looks like the resource you're looking for doesn't exist."
       );
     }
     return Promise.reject(error);
