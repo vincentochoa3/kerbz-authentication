@@ -37,7 +37,7 @@ You can start developing by editing the files inside the **app** directory. This
       EXPO_PUBLIC_BASE_URL=https://dummyjson.com/auth
    ```
 
-   - Note: Since the `/me` for Kerbz api was returning not found 404, I opted to use free mock API @ dummyjson.com
+   - Note: Since the `/me` for Kerbz api was returning not found 404 error, I opted to use a free mock authentication API. For more info about mock API check out the docs at [https://dummyjson.com/docs/auth](https://dummyjson.com/docs/auth)
 
 2. Must have physical device, iOS simulator, or Android emulator to test
 
