@@ -37,11 +37,10 @@ You can start developing by editing the files inside the **app** directory. This
       EXPO_PUBLIC_BASE_URL=https://dummyjson.com/auth
    ```
 
-   - Note: Since the `/me` for Kerbz api was returning not found 404 error, I opted to use a free mock authentication API. For more info about mock API check out the docs at [https://dummyjson.com/docs/auth](https://dummyjson.com/docs/auth)
+   - **Note:** Since the `/me` for Kerbz api was returning not found 404 error, I opted to use a free mock authentication API. For more info about mock API check out the docs at [https://dummyjson.com/docs/auth](https://dummyjson.com/docs/auth).
 
-2. Must have physical device, iOS simulator, or Android emulator to test
 
-3. Run commands listed above in ## Get started
+3. Run commands in terminal (also listed above)
 
    ```bash
    npm install
@@ -53,13 +52,20 @@ You can start developing by editing the files inside the **app** directory. This
    npx expo start
    ```
 
+3. Must have physical device, iOS simulator, or Android emulator to test
+
+   - **For Android/iOS device:** download Expo Go on device, start the app in your terminal, scan QR provided in the terminal. If Expo Go cannot run the app, close Expo Go, reopen and try to run app `kerbz-authentication` from Expo Go Dashboard.
+   - **For Android emulator:** download Android Studio desktop app, select `Virtual Device Manager` from "More Actions" dropdown, and add a device. Select device and system image (I go with latest Pixel Pro, latest API level, and arm64-v8a ABI). Once finished adding device, press "play" button on newly added device in `Device Manager`, let simulator boot up then press `a` in running terminal.
+   - **For iOS simulator:** similar steps to Android emulator but you need Xcode desktop app which is exclusive to macOS.
+
+   
 4. Once `.env` is added and project is running, application loads `/login` screen
 
    - Valid credentials for mock api:
      <br/>
-     Email: `emilys` (mock API uses username to authorize instead of email)
+     **Email:** `emilys` (mock API uses username to authorize instead of email)
      <br/>
-     Password: `emilyspass`
+     **Password:** `emilyspass`
 
 5. After successful login, application redirects to protected `/` screen, and user information is displayed
 
