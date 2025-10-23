@@ -29,7 +29,6 @@ describe("setToken reducer", () => {
     const newState = authUserReducer(previousState, action);
 
     expect(newState.token).toBe(newToken);
-    // Other state should remain unchanged
     expect(newState.user).toEqual(previousState.user);
     expect(newState.lastActiveAt).toBe(previousState.lastActiveAt);
   });

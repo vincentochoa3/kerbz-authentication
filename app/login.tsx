@@ -1,6 +1,5 @@
 import { useAuth } from "@/hooks/useAuth";
 import api from "@/utils/api";
-import { AxiosError } from "axios";
 import { useState } from "react";
 import {
   StyleSheet,
@@ -18,25 +17,17 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      await api
-        .post("/login", {
-          // email: email, // uncomment for REAL API
-          username: email, // uncomment for DUMMY API
-          password: password,
-          expiresInMins: 1, // uncomment for DUMMY API
-          withCredentials: true,
-        })
-        .then((res) => {
-          // login(res.data.token); // uncomment for REAL API
-          login(res.data.accessToken); // uncomment for DUMMY API
-        });
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        console.log("error logging in:", error, error.response?.data.message);
-        setError(error.response?.data.message);
-      } else {
-        console.log("error logging in:", error);
-      }
+      const res = await api.post("/login", {
+        // email: email, // uncomment for REAL API
+        username: email, // uncomment for DUMMY API
+        password: password,
+        expiresInMins: 1, // uncomment for DUMMY API
+      });
+      // login(res.data.token); // uncomment for REAL API
+      login(res.data.accessToken); // uncomment for DUMMY API
+    } catch (error: any) {
+      console.log("error logging in:", error, error.response?.data.message);
+      setError(error.response?.data.message);
     }
   };
 
@@ -52,6 +43,7 @@ export default function Login() {
             placeholder="Email"
             autoCapitalize="none"
             onChangeText={(text) => setEmail(text)}
+            testID="email-input"
           />
           <TextInput
             value={password}
@@ -60,13 +52,19 @@ export default function Login() {
             placeholder="Password"
             autoCapitalize="none"
             onChangeText={(text) => setPassword(text)}
+            testID="password-input"
           />
         </View>
-        {error && <Text style={styles.error}>{error}</Text>}
+        {error && (
+          <Text testID="error-message" style={styles.error}>
+            {error}
+          </Text>
+        )}
         <TouchableOpacity
           onPress={handleLogin}
           style={styles.loginButton}
           activeOpacity={0.8}
+          testID="login-button"
         >
           <Text style={{ color: "white" }}>Log In</Text>
         </TouchableOpacity>
